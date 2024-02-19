@@ -8,6 +8,7 @@ import lk.ijse.layardproject.util.CrudUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -61,5 +62,23 @@ public class CustomerDAOImpl implements CustomerDAO {
                 }
             }
         return null;
+    }
+
+    @Override
+    public ArrayList<Customer> getAll() throws SQLException {
+        String sql = "select * from customer;";
+        ArrayList<Customer> customerArrayList = new ArrayList<>();
+        ResultSet resultSet = CrudUtil.execute(sql);
+        while (resultSet.next()){
+            Customer customer = new Customer(
+                    resultSet.getString("customerId"),
+                    resultSet.getString("name"),
+                    resultSet.getString("address"),
+                    resultSet.getString("email"),
+                    resultSet.getString("contact")
+            );
+            customerArrayList.add(customer);
+        }
+        return customerArrayList;
     }
 }

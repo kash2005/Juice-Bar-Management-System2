@@ -165,7 +165,7 @@ public class CustomerFormController implements Initializable {
     void searchImgOnAction(ActionEvent event) {
         String searchIdText = searchId.getText();
         try {
-            CustomerDTO customerDTO = CustomerModel.searchCustomer(searchIdText);
+            CustomerDTO customerDTO = customerBO.searchCustomer(searchIdText);
             if (customerDTO != null){
                 saveBtn.setText("Update");
                 saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10;");
@@ -197,7 +197,7 @@ public class CustomerFormController implements Initializable {
     void getAll(){
         ObservableList<CustomerTM> observableList = FXCollections.observableArrayList();
         try {
-            ArrayList<CustomerDTO> all = CustomerModel.getAll();
+            ArrayList<CustomerDTO> all = customerBO.getAll();
             for (CustomerDTO customerDTO:all) {
                 observableList.add(new CustomerTM(
                         customerDTO.getCustomerId(),
@@ -225,7 +225,7 @@ public class CustomerFormController implements Initializable {
     void tblCustomerOnMouseClick(MouseEvent event) {
         CustomerTM selectedCustomer = (CustomerTM) tblCustomer.getSelectionModel().getSelectedItem();
         try {
-            CustomerDTO customer = CustomerModel.searchCustomer(selectedCustomer.getCustomerId());
+            CustomerDTO customer = customerBO.searchCustomer(selectedCustomer.getCustomerId());
             customerId.setText(customer.getCustomerId());
             customerNameId.setText(customer.getName());
             customerAddressId.setText(customer.getAddress());

@@ -7,6 +7,7 @@ import lk.ijse.layardproject.dto.CustomerDTO;
 import lk.ijse.layardproject.entity.Customer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CustomerBOImpl implements CustomerBO {
 
@@ -39,5 +40,15 @@ public class CustomerBOImpl implements CustomerBO {
     @Override
     public String generateCustomerId() throws SQLException {
         return customerDAO.generateId();
+    }
+
+    @Override
+    public ArrayList<CustomerDTO> getAll() throws SQLException {
+        ArrayList<CustomerDTO> customerDTOS = new ArrayList<>();
+        ArrayList<Customer> customers = customerDAO.getAll();
+        for (Customer cust:customers) {
+            customerDTOS.add(new CustomerDTO(cust.getCustomerId(), cust.getName(), cust.getAddress(),cust.getEmail(), cust.getContact()));
+        }
+        return customerDTOS;
     }
 }

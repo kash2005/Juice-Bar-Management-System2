@@ -4,6 +4,7 @@ import lk.ijse.layardproject.dto.CustomerDTO;
 import lk.ijse.layardproject.entity.Customer;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public interface CrudDAO<T> extends SuperDAO {
     boolean save(T entity) throws SQLException;
@@ -15,4 +16,6 @@ public interface CrudDAO<T> extends SuperDAO {
     boolean delete(String id) throws SQLException;
 
     String generateId() throws SQLException;
+
+    ArrayList<T> getAll() throws SQLException;
 }
