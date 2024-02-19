@@ -1,0 +1,14 @@
+package lk.ijse.layardproject.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+public class CartDTO {
+    private String itemId;
+    private Integer qty;
+    private Double price;
+}
