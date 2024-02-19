@@ -69,7 +69,7 @@ public class CustomerFormController implements Initializable {
     void deleteBtnOnAction(ActionEvent event) {
         String id = customerId.getText();
         try {
-            boolean isDeleted = CustomerModel.deleteCustomer(id);
+            boolean isDeleted = customerBO.deleteCustomer(id);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer is deleted !").show();
                 clearTextFields();
@@ -92,7 +92,6 @@ public class CustomerFormController implements Initializable {
         String address = customerAddressId.getText();
         String email = customerEmailId.getText();
         String contact = customerContactId.getText();
-        CustomerDTO customerDTO = new CustomerDTO(id,name,address,email,contact);
         if (saveBtn.getText().equals("Save")){
             try {
                 boolean isSaved = customerBO.saveCustomer(new CustomerDTO(id, name, address, email, contact));
@@ -109,8 +108,7 @@ public class CustomerFormController implements Initializable {
             }
         }else if (saveBtn.getText().equals("Update")){
             try {
-                saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10;");
-                boolean isUpdated = CustomerModel.updateCustomer(customerDTO);
+                boolean isUpdated = customerBO.updateCustomer(new CustomerDTO(id, name, address, email, contact));
                 if (isUpdated){
                     new Alert(Alert.AlertType.CONFIRMATION,"Customer is updated !").show();
                     saveBtn.setText("Save");
@@ -136,7 +134,7 @@ public class CustomerFormController implements Initializable {
 
     public void generateCustomerId() {
         try {
-            String id = CustomerModel.generateCustomerId();
+            String id = customerBO.generateCustomerId();
             customerId.setText(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);

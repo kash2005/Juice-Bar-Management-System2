@@ -33,4 +33,33 @@ public class CustomerDAOImpl implements CustomerDAO {
         }
         return customer;
     }
+
+    @Override
+    public boolean update(Customer customer) throws SQLException {
+        String sql = "update customer set name = ?,address = ?,email = ?,contact = ? where customerId = ?;";
+        return SQLUtil.execute(sql,customer.getName(),customer.getAddress(),customer.getEmail(),customer.getContact(),
+                customer.getCustomerId());
+    }
+
+    @Override
+    public boolean delete(String id) throws SQLException {
+        String sql = "delete from customer where customerId = ?;";
+        return SQLUtil.execute(sql,id);
+    }
+
+    @Override
+    public String generateId() throws SQLException {
+        String sql = "select max(customerId) as lastCustomerId from customer";
+            ResultSet resultSet = SQLUtil.execute(sql);
+            if (resultSet.next()){
+                String lastCustomerId = resultSet.getString("lastCustomerId");
+                if (lastCustomerId == null){
+                    return "C001";
+                }else {
+                    int nextId = Integer.parseInt(lastCustomerId.substring(1))+1;
+                    return "C" + String.format("%03d",nextId);
+                }
+            }
+        return null;
+    }
 }

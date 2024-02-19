@@ -9,4 +9,10 @@ public interface CrudDAO<T> extends SuperDAO {
     boolean save(T entity) throws SQLException;
 
     T search(String searchIdText) throws SQLException;
+
+    boolean update(T entity) throws SQLException;
+
+    boolean delete(String id) throws SQLException;
+
+    String generateId() throws SQLException;
 }

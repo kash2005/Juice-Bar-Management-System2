@@ -24,4 +24,20 @@ public class CustomerBOImpl implements CustomerBO {
         return new CustomerDTO(customer.getCustomerId(),customer.getName(),customer.getAddress(),customer.getEmail()
                 ,customer.getContact());
     }
+
+    @Override
+    public boolean updateCustomer(CustomerDTO customerDTO) throws SQLException {
+        return customerDAO.update(new Customer(customerDTO.getCustomerId(),customerDTO.getName(),customerDTO.getAddress(),
+                customerDTO.getEmail(),customerDTO.getContact()));
+    }
+
+    @Override
+    public boolean deleteCustomer(String id) throws SQLException {
+        return customerDAO.delete(id);
+    }
+
+    @Override
+    public String generateCustomerId() throws SQLException {
+        return customerDAO.generateId();
+    }
 }

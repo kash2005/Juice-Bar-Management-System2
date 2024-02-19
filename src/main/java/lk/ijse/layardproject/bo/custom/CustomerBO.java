@@ -9,4 +9,10 @@ public interface CustomerBO extends SuperBO {
     boolean saveCustomer(CustomerDTO customerDTO) throws SQLException;
 
     CustomerDTO searchCustomer(String searchIdText) throws SQLException;
+
+    boolean updateCustomer(CustomerDTO customerDTO) throws SQLException;
+
+    boolean deleteCustomer(String id) throws SQLException;
+
+    String generateCustomerId() throws SQLException;
 }
