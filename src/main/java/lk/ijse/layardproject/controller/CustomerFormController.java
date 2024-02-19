@@ -147,20 +147,15 @@ public class CustomerFormController implements Initializable {
     void searchTxtOnAction(ActionEvent event) {
         String searchIdText = searchId.getText();
         try {
-            CustomerDTO customerDTO = CustomerModel.searchCustomer(searchIdText);
+            CustomerDTO customerDTO = customerBO.searchCustomer(searchIdText);
             if (customerDTO != null){
                 saveBtn.setText("Update");
                 saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10;");
-                String id = customerDTO.getCustomerId();
-                String name = customerDTO.getName();
-                String address = customerDTO.getAddress();
-                String email = customerDTO.getEmail();
-                String contact = customerDTO.getContact();
-                customerId.setText(id);
-                customerNameId.setText(name);
-                customerAddressId.setText(address);
-                customerEmailId.setText(email);
-                customerContactId.setText(contact);
+                customerId.setText(searchIdText);
+                customerNameId.setText(customerDTO.getName());
+                customerAddressId.setText(customerDTO.getAddress());
+                customerEmailId.setText(customerDTO.getEmail());
+                customerContactId.setText(customerDTO.getContact());
                 searchId.clear();
             }
         } catch (SQLException e) {

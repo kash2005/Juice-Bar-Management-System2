@@ -17,4 +17,11 @@ public class CustomerBOImpl implements CustomerBO {
         return customerDAO.save(new Customer(customerDTO.getCustomerId(),customerDTO.getName(),customerDTO.getAddress(),
                 customerDTO.getEmail(),customerDTO.getContact()));
     }
+
+    @Override
+    public CustomerDTO searchCustomer(String searchIdText) throws SQLException {
+        Customer customer = customerDAO.search(searchIdText);
+        return new CustomerDTO(customer.getCustomerId(),customer.getName(),customer.getAddress(),customer.getEmail()
+                ,customer.getContact());
+    }
 }
