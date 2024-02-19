@@ -4,7 +4,7 @@ import lk.ijse.layardproject.bo.custom.CustomerBO;
 import lk.ijse.layardproject.bo.custom.impl.CustomerBOImpl;
 
 public class BOFactory {
-    public static BOFactory boFactory;
+    private static BOFactory boFactory;
 
     private BOFactory(){}
 

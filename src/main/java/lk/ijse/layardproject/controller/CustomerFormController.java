@@ -12,6 +12,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.CustomerBO;
 import lk.ijse.layardproject.dto.CustomerDTO;
 import lk.ijse.layardproject.dto.tm.CustomerTM;
 import lk.ijse.layardproject.model.CustomerModel;
@@ -61,6 +63,8 @@ public class CustomerFormController implements Initializable {
     @FXML
     private TableColumn<CustomerTM, String> tblCustomerContact;
 
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+
     @FXML
     void deleteBtnOnAction(ActionEvent event) {
         String id = customerId.getText();
@@ -91,7 +95,7 @@ public class CustomerFormController implements Initializable {
         CustomerDTO customerDTO = new CustomerDTO(id,name,address,email,contact);
         if (saveBtn.getText().equals("Save")){
             try {
-                boolean isSaved = CustomerModel.saveCustomer(customerDTO);
+                boolean isSaved = customerBO.saveCustomer(new CustomerDTO(id, name, address, email, contact));
                 if (isSaved){
                     new Alert(Alert.AlertType.CONFIRMATION,"Customer is saved !").show();
                     clearTextFields();
