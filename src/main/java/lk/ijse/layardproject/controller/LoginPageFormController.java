@@ -96,7 +96,7 @@ public class LoginPageFormController implements Initializable {
                 try {
                     UserDTO user = UserModel.getUser(userName);
                     if (userName.equals(user.getUserName()) && password.equals(user.getPassword())){
-                        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/dashboardForm.fxml"));
+                        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/dashboardForm.fxml"));
                         Stage stage = new Stage();
                         stage.setScene(new Scene(anchorPane));
                         Stage stage1 = (Stage) root.getScene().getWindow();
@@ -114,7 +114,7 @@ public class LoginPageFormController implements Initializable {
                 try {
                     UserDTO user = UserModel.getUser(userName);
                     if (userName.equals(user.getUserName()) && password.equals(user.getPassword())){
-                        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/adminDashboardForm.fxml"));
+                        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/adminDashboardForm.fxml"));
                         Stage stage = new Stage();
                         stage.setScene(new Scene(anchorPane));
                         Stage stage1 = (Stage) root.getScene().getWindow();

@@ -10,7 +10,7 @@ public class Appinitilizer extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        Parent load = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/loadingPageForm.fxml"));
+        Parent load = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/loadingPageForm.fxml"));
         stage.setScene(new Scene(load));
         stage.setTitle("Juice Bar Management System - Loading Page");
         stage.centerOnScreen();

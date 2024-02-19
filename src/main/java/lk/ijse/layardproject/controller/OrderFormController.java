@@ -353,7 +353,7 @@ public class OrderFormController implements Initializable {
                 DeliveryFormController.orderDetailsDTOList = orderDetailsDTOList;
             }
             try {
-                AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/deliveryForm.fxml"));
+                AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/deliveryForm.fxml"));
                 Stage stage = new Stage();
                 stage.setTitle("Juice Bar Management System - Delivery Page");
                 stage.setScene(new Scene(anchorPane));
@@ -401,7 +401,7 @@ public class OrderFormController implements Initializable {
 
     @FXML
     void orderDetailsOnAction(ActionEvent event) throws IOException {
-        AnchorPane load = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/OrderDetailsTblForm.fxml"));
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/OrderDetailsTblForm.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(load));
         stage.show();

@@ -58,7 +58,7 @@ public class AdminDashboardFormController implements Initializable {
     @FXML
     void userBtnOnAction(ActionEvent event) {
         try {
-            setForms(userBtn,"/lk/ijse/mvcproject/view/userForm.fxml",userOrangeImg,userGreyImg);
+            setForms(userBtn,"/lk/ijse/layardproject/view/userForm.fxml",userOrangeImg,userGreyImg);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +67,7 @@ public class AdminDashboardFormController implements Initializable {
     @FXML
     void attendanceBtnOnAction(ActionEvent event) {
         try {
-            setForms(attendanceBtn,"/lk/ijse/mvcproject/view/attendanceForm.fxml",attendanceOrangeImg,attendanceGreyImg);
+            setForms(attendanceBtn,"/lk/ijse/layardproject/view/attendanceForm.fxml",attendanceOrangeImg,attendanceGreyImg);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -76,7 +76,7 @@ public class AdminDashboardFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            setForms(dashboardBtn,"/lk/ijse/mvcproject/view/adminDashboardLoader.fxml",dashboardOrangeImg,dashboardGreyImg);
+            setForms(dashboardBtn,"/lk/ijse/layardproject/view/adminDashboardLoader.fxml",dashboardOrangeImg,dashboardGreyImg);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -84,18 +84,18 @@ public class AdminDashboardFormController implements Initializable {
 
     @FXML
     void dashboardOnAction(ActionEvent event) throws IOException {
-        setForms(dashboardBtn,"/lk/ijse/mvcproject/view/adminDashboardLoader.fxml",dashboardOrangeImg,dashboardGreyImg);
+        setForms(dashboardBtn,"/lk/ijse/layardproject/view/adminDashboardLoader.fxml",dashboardOrangeImg,dashboardGreyImg);
     }
 
     @FXML
     void employeeBtnOnAction(ActionEvent event) throws IOException {
-        setForms(employeeBtn,"/lk/ijse/mvcproject/view/employeeForm.fxml",employeeOrangeImg,employeeGreyImg);
+        setForms(employeeBtn,"/lk/ijse/layardproject/view/employeeForm.fxml",employeeOrangeImg,employeeGreyImg);
     }
 
     void setForms(JFXButton btn,String path,ImageView image,ImageView greyImageView) throws IOException {
         JFXButton[] buttons = {dashboardBtn,employeeBtn,attendanceBtn,userBtn};
-        String[] forms = {"/lk/ijse/mvcproject/view/adminDashboardLoader.fxml","/lk/ijse/mvcproject/view/employeeForm.fxml",
-                "/lk/ijse/mvcproject/view/attendanceForm.fxml","/lk/ijse/mvcproject/view/userForm.fxml"};
+        String[] forms = {"/lk/ijse/layardproject/view/adminDashboardLoader.fxml","/lk/ijse/layardproject/view/employeeForm.fxml",
+                "/lk/ijse/layardproject/view/attendanceForm.fxml","/lk/ijse/layardproject/view/userForm.fxml"};
         ImageView[] imageViews = {dashboardOrangeImg,employeeOrangeImg,attendanceOrangeImg,userOrangeImg};
         ImageView[] greyImage = {dashboardGreyImg,employeeGreyImg,attendanceGreyImg,userGreyImg};
         for (int i = 0; i < forms.length; i++) {
@@ -116,7 +116,7 @@ public class AdminDashboardFormController implements Initializable {
 
     @FXML
     void signoutBtnOnAction(ActionEvent event) throws IOException {
-        AnchorPane load = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/loginPageForm.fxml"));
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/loginPageForm.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(load));
         Stage stage1 = (Stage) root.getScene().getWindow();

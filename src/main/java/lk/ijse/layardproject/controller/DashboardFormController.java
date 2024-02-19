@@ -76,7 +76,7 @@ public class DashboardFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            setForms(dashboardBtn,"/lk/ijse/mvcproject/view/DashboardLoadingForm.fxml",dashboardOrangeImg,dashboardGreyImg);
+            setForms(dashboardBtn,"/lk/ijse/layardproject/view/DashboardLoadingForm.fxml",dashboardOrangeImg,dashboardGreyImg);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -84,37 +84,37 @@ public class DashboardFormController implements Initializable {
 
     @FXML
     void customerBtnOnAction(ActionEvent event) throws IOException {
-        setForms(customerBtn,"/lk/ijse/mvcproject/view/customerForm.fxml",customerOrangeImg,customerGreyImg);
+        setForms(customerBtn,"/lk/ijse/layardproject/view/customerForm.fxml",customerOrangeImg,customerGreyImg);
     }
 
     @FXML
     void dashboardBtnOnAction(ActionEvent event) throws IOException {
-        setForms(dashboardBtn,"/lk/ijse/mvcproject/view/DashboardLoadingForm.fxml",dashboardOrangeImg,dashboardGreyImg);
+        setForms(dashboardBtn,"/lk/ijse/layardproject/view/DashboardLoadingForm.fxml",dashboardOrangeImg,dashboardGreyImg);
     }
 
     @FXML
     void orderBtnOnAction(ActionEvent event) throws IOException {
-        setForms(orderBtn,"/lk/ijse/mvcproject/view/orderForm.fxml",orderOrangeImg,orderGreyImg);
+        setForms(orderBtn,"/lk/ijse/layardproject/view/orderForm.fxml",orderOrangeImg,orderGreyImg);
     }
 
     @FXML
     void ingredientBtnOnAction(ActionEvent event) throws IOException {
-        setForms(ingredientBtn,"/lk/ijse/mvcproject/view/ingredientForm.fxml",ingredientOrangeImg,ingredientGreyImg);
+        setForms(ingredientBtn,"/lk/ijse/layardproject/view/ingredientForm.fxml",ingredientOrangeImg,ingredientGreyImg);
     }
 
     @FXML
     void itemBtnOnAction(ActionEvent event) throws IOException {
-        setForms(itemBtn,"/lk/ijse/mvcproject/view/itemForm.fxml",itemOrangeImg,itemGreyImg);
+        setForms(itemBtn,"/lk/ijse/layardproject/view/itemForm.fxml",itemOrangeImg,itemGreyImg);
     }
 
     @FXML
     void supplierBtnOnAction(ActionEvent event) throws IOException {
-        setForms(supplierBtn,"/lk/ijse/mvcproject/view/supplierForm.fxml",supplierOrangeImg,supplierGreyImg);
+        setForms(supplierBtn,"/lk/ijse/layardproject/view/supplierForm.fxml",supplierOrangeImg,supplierGreyImg);
     }
 
     @FXML
     void signoutBtnOnAction(ActionEvent event) throws IOException {
-        AnchorPane load = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/loginPageForm.fxml"));
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/loginPageForm.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(load));
         Stage stage1 = (Stage) root.getScene().getWindow();
@@ -126,9 +126,9 @@ public class DashboardFormController implements Initializable {
 
     void setForms(JFXButton btn,String path,ImageView image,ImageView greyImageView) throws IOException {
         JFXButton[] buttons = {dashboardBtn,customerBtn,itemBtn,ingredientBtn,orderBtn,supplierBtn};
-        String[] forms = {"/lk/ijse/mvcproject/view/DashboardLoadingForm.fxml","/lk/ijse/mvcproject/view/customerForm.fxml",
-                "/lk/ijse/mvcproject/view/itemForm.fxml", "/lk/ijse/mvcproject/view/ingredientForm.fxml","/lk/ijse/mvcproject/view/orderForm.fxml",
-                "/lk/ijse/mvcproject/view/supplierForm.fxml"};
+        String[] forms = {"/lk/ijse/layardproject/view/DashboardLoadingForm.fxml","/lk/ijse/layardproject/view/customerForm.fxml",
+                "/lk/ijse/layardproject/view/itemForm.fxml", "/lk/ijse/layardproject/view/ingredientForm.fxml","/lk/ijse/layardproject/view/orderForm.fxml",
+                "/lk/ijse/layardproject/view/supplierForm.fxml"};
         ImageView[] imageViews = {dashboardOrangeImg,customerOrangeImg,itemOrangeImg,ingredientOrangeImg,
         orderOrangeImg,supplierOrangeImg};
         ImageView[] greyImage = {dashboardGreyImg,customerGreyImg,itemGreyImg,ingredientGreyImg,

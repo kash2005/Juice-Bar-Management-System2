@@ -121,7 +121,7 @@ public class AdminDashboardLoaderController implements Initializable {
     @FXML
     void userBtnOnAction(ActionEvent event) {
         try {
-            setForms(userBtn,"/lk/ijse/mvcproject/view/userForm.fxml",userOrangeImg,userGreyImg);
+            setForms(userBtn,"/lk/ijse/layardproject/view/userForm.fxml",userOrangeImg,userGreyImg);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -130,7 +130,7 @@ public class AdminDashboardLoaderController implements Initializable {
     @FXML
     void attendanceBtnOnAction(ActionEvent event) {
         try {
-            setForms(attendanceBtn,"/lk/ijse/mvcproject/view/attendanceForm.fxml",attendanceOrangeImg,attendanceGreyImg);
+            setForms(attendanceBtn,"/lk/ijse/layardproject/view/attendanceForm.fxml",attendanceOrangeImg,attendanceGreyImg);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -138,13 +138,13 @@ public class AdminDashboardLoaderController implements Initializable {
 
     @FXML
     void employeeBtnOnAction(ActionEvent event) throws IOException {
-        setForms(employeeBtn,"/lk/ijse/mvcproject/view/employeeForm.fxml",employeeOrangeImg,employeeGreyImg);
+        setForms(employeeBtn,"/lk/ijse/layardproject/view/employeeForm.fxml",employeeOrangeImg,employeeGreyImg);
     }
 
     void setForms(JFXButton btn,String path,ImageView image,ImageView greyImageView) throws IOException {
         JFXButton[] buttons = {employeeBtn,attendanceBtn,userBtn};
-        String[] forms = {"/lk/ijse/mvcproject/view/employeeForm.fxml", "/lk/ijse/mvcproject/view/attendanceForm.fxml",
-                "/lk/ijse/mvcproject/view/userForm.fxml"};
+        String[] forms = {"/lk/ijse/layardproject/view/employeeForm.fxml", "/lk/ijse/layardproject/view/attendanceForm.fxml",
+                "/lk/ijse/layardproject/view/userForm.fxml"};
         ImageView[] imageViews = {employeeOrangeImg,attendanceOrangeImg,userOrangeImg};
         ImageView[] greyImage = {employeeGreyImg,attendanceGreyImg,userGreyImg};
         for (int i = 0; i < forms.length; i++) {
@@ -172,7 +172,7 @@ public class AdminDashboardLoaderController implements Initializable {
 
     @FXML
     void userImgOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/userForm.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/userForm.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(anchorPane));
         stage.show();

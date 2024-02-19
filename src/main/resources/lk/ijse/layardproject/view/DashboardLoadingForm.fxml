@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1149.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mvcproject.controller.DashboardLoadingController">
+<AnchorPane prefHeight="800.0" prefWidth="1149.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.layardproject.controller.DashboardLoadingController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebdcc9" height="800.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="644.0" />
       <Rectangle arcHeight="25.0" arcWidth="25.0" fill="ORANGE" height="202.0" layoutX="39.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="691.0" />

@@ -37,11 +37,11 @@ public class LoadingPageFormController implements Initializable {
 
             Parent loginParent = null;
             try {
-                loginParent = FXMLLoader.load(getClass().getResource("/lk/ijse/mvcproject/view/loginPageForm.fxml"));
+                loginParent = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/loginPageForm.fxml"));
                 Scene loginScene = new Scene(loginParent);
                 Stage loginStage = new Stage();
                 loginStage.setResizable(false);
-                Image image = new Image(getClass().getResourceAsStream("/lk/ijse/mvcproject/image/orange_logo.png"));
+                Image image = new Image(getClass().getResourceAsStream("/lk/ijse/layardproject/image/orange_logo.png"));
                 loginStage.getIcons().add(image);
                 loginStage.setTitle("Juice Bar Management System - Login Page");
                 loginStage.setScene(loginScene);
