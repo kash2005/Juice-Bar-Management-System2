@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1149.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.mvcproject.controller.AdminDashboardLoaderController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebdcc9" height="800.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="644.0" />
+      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="ORANGE" height="202.0" layoutX="39.0" layoutY="206.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="691.0" />
+      <Text fill="ORANGE" layoutX="43.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin DAshboard">
+         <font>
+            <Font name="Algerian" size="51.0" />
+         </font>
+      </Text>
+      <Text fill="#a19595" layoutX="48.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can see here sumaries about this system">
+         <font>
+            <Font name="Serif Regular" size="16.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="350.0" fitWidth="480.0" layoutX="375.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/front-view-female-courier-yellow-shirt-yellow-cap-smiling-white_140725-19755-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="64.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Drink Juice Stay Refresh">
+         <font>
+            <Font name="Serif Regular" size="31.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="64.0" layoutY="306.0" opacity="0.86" strokeType="OUTSIDE" strokeWidth="0.0" text="A Juice Bar Management System optimizes operations, handling orders, inventory, menu customization, and reporting for efficient business management, fostering growth and customer satisfaction." wrappingWidth="370.125">
+         <font>
+            <Font name="Serif Regular" size="17.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="WHITE" height="47.0" layoutX="538.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="430.0" />
+      <Text layoutX="560.0" layoutY="79.0" opacity="0.39" strokeType="OUTSIDE" strokeWidth="0.0" text="          Search " wrappingWidth="386.13623046875">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="561.0" layoutY="58.0" opacity="0.39" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icons8-search-64.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="47.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Details Table">
+         <font>
+            <Font name="SansSerif Regular" size="25.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="1075.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icons8-menu-100%20(3).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="34.0" fitWidth="42.0" layoutX="1015.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/icons8-user-100%20(1).png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="405.0" fitWidth="412.0" layoutX="731.0" layoutY="375.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/orange_logo.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#ebdcc9" height="254.0" layoutX="801.0" layoutY="187.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="311.0" />
+      <Text layoutX="827.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Report on this year">
+         <font>
+            <Font name="SansSerif Regular" size="23.0" />
+         </font>
+      </Text>
+      <LineChart fx:id="lineChart" layoutX="810.0" layoutY="246.0" prefHeight="190.0" prefWidth="272.0" title="Monthly  Orders">
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+      </LineChart>
+      <JFXButton layoutX="1067.0" layoutY="50.0" onAction="#menuImgOnAction" opacity="0.0" prefHeight="44.0" prefWidth="50.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 10;" text="." textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="1007.0" layoutY="50.0" onAction="#userImgOnAction" opacity="0.0" prefHeight="44.0" prefWidth="50.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 10;" text="." textFill="WHITE">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane fx:id="menuAnchorpane" layoutX="912.0" layoutY="90.0" prefHeight="173.0" prefWidth="197.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="58.0" layoutX="-3.0" layoutY="-3.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+            <JFXButton fx:id="employeeBtn" layoutX="4.0" layoutY="1.0" onAction="#employeeBtnOnAction" text="  Employee" textFill="#757575">
+               <font>
+                  <Font size="23.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="employeeGreyImg" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icons8-employee.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <ImageView fx:id="employeeOrangeImg" fitHeight="30.0" fitWidth="30.0" layoutX="20.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/icons8-employees-100.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="58.0" layoutX="-3.0" layoutY="55.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+            <JFXButton fx:id="attendanceBtn" layoutY="60.0" onAction="#attendanceBtnOnAction" text="  Attendance" textFill="#757575">
+               <font>
+                  <Font size="23.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="attendanceGreyImg" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/icons8-attendance-100%20(1).png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <ImageView fx:id="attendanceOrangeImg" fitHeight="30.0" fitWidth="30.0" layoutX="16.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/icons8-attendance-100.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="58.0" layoutX="-3.0" layoutY="113.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="200.0" />
+            <JFXButton fx:id="userBtn" layoutX="3.0" layoutY="113.0" onAction="#userBtnOnAction" text="  User" textFill="#757575">
+               <font>
+                  <Font size="23.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="userGreyImg" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/uu.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <ImageView fx:id="userOrangeImg" fitHeight="30.0" fitWidth="30.0" layoutX="19.0" layoutY="123.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/uu1.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tblEmployee" layoutX="42.0" layoutY="509.0" prefHeight="254.0" prefWidth="563.0" style="-fx-background-color: #f4f4f4;" stylesheets="@../style/progressBar.css">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="64.0" text="Id" />
+            <TableColumn fx:id="colName" prefWidth="78.0" text="Name" />
+            <TableColumn fx:id="colType" prefWidth="79.0" text="Type" />
+            <TableColumn fx:id="colAddress" prefWidth="101.0" text="Address" />
+            <TableColumn fx:id="colContact" prefWidth="95.0" text="Contact" />
+            <TableColumn fx:id="colEmail" prefWidth="72.0" text="Email" />
+            <TableColumn fx:id="colPerHour" prefWidth="72.0" text="PerHour" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
