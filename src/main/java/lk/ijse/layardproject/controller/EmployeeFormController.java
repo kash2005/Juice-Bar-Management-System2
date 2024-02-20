@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.EmployeeBO;
 import lk.ijse.layardproject.dto.EmployeeDTO;
 import lk.ijse.layardproject.dto.tm.EmployeeTM;
 import lk.ijse.layardproject.model.EmployeeModel;
@@ -70,11 +72,13 @@ public class EmployeeFormController implements Initializable {
     @FXML
     private TextField searchId;
 
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
+
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String id = eId.getText();
         try {
-            boolean delete = EmployeeModel.delete(id);
+            boolean delete = employeeBO.delete(id);
             if (delete){
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee is deleted !").show();
                 clear();
@@ -99,11 +103,10 @@ public class EmployeeFormController implements Initializable {
         String contact = eContact.getText();
         String email = eEmail.getText();
         String perHour = onePerHour.getText();
-        EmployeeDTO employeeDTO = new EmployeeDTO(id, name, address, email, contact, type, perHour);
 
         if (btnSave.getText().equals("Save")){
             try {
-                boolean save = EmployeeModel.save(employeeDTO);
+                boolean save = employeeBO.save(new EmployeeDTO(id, name, address, email, contact, type, perHour));
                 if (save){
                     new Alert(Alert.AlertType.CONFIRMATION,"Employee is saved !").show();
                     clear();
@@ -117,7 +120,7 @@ public class EmployeeFormController implements Initializable {
             }
         }else if (btnSave.getText().equals("Update")){
             try {
-                boolean update = EmployeeModel.update(employeeDTO);
+                boolean update = employeeBO.update(new EmployeeDTO(id, name, address, email, contact, type, perHour));
                 if (update){
                     new Alert(Alert.AlertType.CONFIRMATION,"Employee is updated !").show();
                     btnSave.setText("Save");
@@ -159,12 +162,11 @@ public class EmployeeFormController implements Initializable {
         btnSave.fire();
     }
 
-    @FXML
-    void searchImgOnAction(ActionEvent event) {
+    void searchId(){
         String id = searchId.getText();
         System.out.println(id);
         try {
-            EmployeeDTO employeeDTO = EmployeeModel.searchEmployeeId(id);
+            EmployeeDTO employeeDTO = employeeBO.searchEmployeeId(id);
             String name = employeeDTO.getName();
             String jobRoll = employeeDTO.getJobRoll();
             String address = employeeDTO.getAddress();
@@ -184,38 +186,21 @@ public class EmployeeFormController implements Initializable {
         btnSave.setText("Update");
         btnSave.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
     }
+    @FXML
+    void searchImgOnAction(ActionEvent event) {
+        searchId();
+    }
 
     @FXML
     void searchTxtOnAction(ActionEvent event) {
-        String id = searchId.getText();
-        System.out.println(id);
-        try {
-            EmployeeDTO employeeDTO = EmployeeModel.searchEmployeeId(id);
-            String name = employeeDTO.getName();
-            String jobRoll = employeeDTO.getJobRoll();
-            String address = employeeDTO.getAddress();
-            String contact = employeeDTO.getContact();
-            String email = employeeDTO.getEmail();
-            String onePerHour1 = employeeDTO.getOnePerHour();
-            eId.setText(id);
-            eName.setText(name);
-            cmbEType.setValue(jobRoll);
-            eAddress.setText(address);
-            eContact.setText(contact);
-            eEmail.setText(email);
-            onePerHour.setText(onePerHour1);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        btnSave.setText("Update");
-        btnSave.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
+        searchId();
     }
 
     @FXML
     void tblEmployeeOnMouseClick(MouseEvent event) {
         EmployeeTM selectedItem = (EmployeeTM) tblEmployee.getSelectionModel().getSelectedItem();
         try {
-            EmployeeDTO employeeDTO = EmployeeModel.searchEmployeeId(selectedItem.getEId());
+            EmployeeDTO employeeDTO = employeeBO.searchEmployeeId(selectedItem.getEId());
             eId.setText(employeeDTO.getEId());
             eName.setText(employeeDTO.getName());
             cmbEType.setValue(employeeDTO.getJobRoll());
@@ -247,7 +232,7 @@ public class EmployeeFormController implements Initializable {
 
     void generateId(){
         try {
-            String id = EmployeeModel.generateId();
+            String id = employeeBO.generateId();
             eId.setText(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -276,7 +261,7 @@ public class EmployeeFormController implements Initializable {
     private void getAll(){
         ObservableList<EmployeeTM> observableList = FXCollections.observableArrayList();
         try {
-            ArrayList<EmployeeDTO> all = EmployeeModel.getAll();
+            ArrayList<EmployeeDTO> all = employeeBO.getAll();
             for (EmployeeDTO employeeDTO : all){
                 observableList.add(new EmployeeTM(
                     employeeDTO.getEId(),
