@@ -2,7 +2,9 @@ package lk.ijse.layardproject.bo;
 
 import lk.ijse.layardproject.bo.custom.CustomerBO;
 import lk.ijse.layardproject.bo.custom.impl.CustomerBOImpl;
+import lk.ijse.layardproject.bo.custom.impl.IngredientBOImpl;
 import lk.ijse.layardproject.bo.custom.impl.SupplierBOImpl;
+import lk.ijse.layardproject.dao.custom.impl.IngredientDAOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -14,7 +16,7 @@ public class BOFactory {
     }
 
     public enum BOTypes{
-        CUSTOMER,SUPPLIER
+        CUSTOMER,SUPPLIER,INGREDIENT
     }
 
     public SuperBO getBO(BOTypes boTypes){
@@ -23,6 +25,8 @@ public class BOFactory {
                 return new CustomerBOImpl();
             case SUPPLIER:
                 return new SupplierBOImpl();
+            case INGREDIENT:
+                return new IngredientBOImpl();
             default:
                 return null;
         }

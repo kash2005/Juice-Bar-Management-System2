@@ -12,6 +12,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.IngredientBO;
 import lk.ijse.layardproject.dto.IngredientDTO;
 import lk.ijse.layardproject.dto.tm.IngredientTM;
 import lk.ijse.layardproject.model.IngredientModel;
@@ -56,11 +58,13 @@ public class IngredientFormController implements Initializable {
     @FXML
     private TextField searchId;
 
+    IngredientBO ingredientBO = (IngredientBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.INGREDIENT);
+
     @FXML
     void deleteBtnOnAction(ActionEvent event) {
         String id = ingredientId.getText();
         try {
-            boolean isDeleted = IngredientModel.deleteIngredient(id);
+            boolean isDeleted = ingredientBO.deleteIngredient(id);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"Ingredient is deleted ").show();
                 clearTextFields();
@@ -85,7 +89,7 @@ public class IngredientFormController implements Initializable {
     void tblIngredientOnMouseClick(MouseEvent event) {
         IngredientTM selectedIngredient = (IngredientTM) tblIngredient.getSelectionModel().getSelectedItem();
         try {
-            IngredientDTO ingredientDTO = IngredientModel.searchIngredientId(selectedIngredient.getIngredientId());
+            IngredientDTO ingredientDTO = ingredientBO.searchIngredientId(selectedIngredient.getIngredientId());
             ingredientId.setText(ingredientDTO.getIngredientId());
             ingredientDescription.setText(ingredientDTO.getDescription());
             ingredientWeight.setText(ingredientDTO.getWeight());
@@ -108,10 +112,9 @@ public class IngredientFormController implements Initializable {
         String description = ingredientDescription.getText();
         String weight = ingredientWeight.getText();
         Double price = Double.valueOf(ingredientPrice.getText());
-        IngredientDTO ingredientDTO = new IngredientDTO(id,description,price,weight);
         if (saveBtn.getText().equals("Save")){
             try {
-                boolean isSaved = IngredientModel.saveIngredient(ingredientDTO);
+                boolean isSaved = ingredientBO.saveIngredient(new IngredientDTO(id,description,price,weight));
                 if (isSaved){
                     new Alert(Alert.AlertType.CONFIRMATION,"Ingredient is saved !").show();
                     clearTextFields();
@@ -127,7 +130,7 @@ public class IngredientFormController implements Initializable {
             saveBtn.setText("Update");
             saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
             try {
-                boolean isUpdate = IngredientModel.updateIngredient(ingredientDTO);
+                boolean isUpdate = ingredientBO.updateIngredient(new IngredientDTO(id,description,price,weight));
                 if (isUpdate){
                     saveBtn.setText("Save");
                     saveBtn.setStyle("-fx-background-color: green; -fx-background-radius: 10");
@@ -144,11 +147,10 @@ public class IngredientFormController implements Initializable {
         }
     }
 
-    @FXML
-    void searchIdOnAction(ActionEvent event) {
+    void searchId(){
         String id = searchId.getText();
         try {
-            IngredientDTO ingredientDTO = IngredientModel.searchIngredientId(id);
+            IngredientDTO ingredientDTO = ingredientBO.searchIngredientId(id);
             if (ingredientDTO != null){
                 saveBtn.setText("Update");
                 saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
@@ -168,26 +170,13 @@ public class IngredientFormController implements Initializable {
     }
 
     @FXML
+    void searchIdOnAction(ActionEvent event) {
+        searchId();
+    }
+
+    @FXML
     void searchImgOnAction(ActionEvent event) {
-        String id = searchId.getText();
-        try {
-            IngredientDTO ingredientDTO = IngredientModel.searchIngredientId(id);
-            if (ingredientDTO != null){
-                saveBtn.setText("Update");
-                saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
-                String ingredientId1 = ingredientDTO.getIngredientId();
-                String description = ingredientDTO.getDescription();
-                double price = ingredientDTO.getPrice();
-                String weight = ingredientDTO.getWeight();
-                ingredientId.setText(ingredientId1);
-                ingredientDescription.setText(description);
-                ingredientWeight.setText(weight);
-                ingredientPrice.setText(String.valueOf(price));
-                searchId.clear();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        searchId();
     }
 
     @FXML
@@ -212,7 +201,7 @@ public class IngredientFormController implements Initializable {
     private void getAll() {
         ObservableList<Object> observableList = FXCollections.observableArrayList();
         try {
-            ArrayList<IngredientDTO> all = IngredientModel.getAll();
+            ArrayList<IngredientDTO> all = ingredientBO.getAll();
             for(IngredientDTO ingredientDTO:all){
                 observableList.add(new IngredientTM(
                         ingredientDTO.getIngredientId(),
@@ -229,7 +218,7 @@ public class IngredientFormController implements Initializable {
 
     private void generateIngredientId() {
         try {
-            String id = IngredientModel.generateIngredientId();
+            String id = ingredientBO.generateIngredientId();
             ingredientId.setText(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
