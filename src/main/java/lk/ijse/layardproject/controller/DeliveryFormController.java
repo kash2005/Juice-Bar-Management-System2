@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.DeliveryBO;
+import lk.ijse.layardproject.bo.custom.PlaceOrderBO;
 import lk.ijse.layardproject.dto.*;
 import lk.ijse.layardproject.model.CustomerModel;
 import lk.ijse.layardproject.model.DeliveryModel;
@@ -56,6 +59,8 @@ public class DeliveryFormController implements Initializable {
 
     public static List<CartDTO> cartDTOList;
 
+    DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DELIVERY);
+    PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -66,7 +71,7 @@ public class DeliveryFormController implements Initializable {
 
     private void generateDeliveryId() {
         try {
-            String id = DeliveryModel.generateDeliveryId();
+            String id = deliveryBO.generateDeliveryId();
             deliveryId.setText(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -96,7 +101,6 @@ public class DeliveryFormController implements Initializable {
 
     void calculateNetTotal(){
         Double subTot = orderDetailsDTO.getAmount();
-        System.out.println(subTot);
         int distanceText = Integer.parseInt(distance.getText());
         double deliveryTotal = distanceText * 20;
         deliveryTot.setText(String.valueOf(deliveryTotal));
@@ -122,9 +126,21 @@ public class DeliveryFormController implements Initializable {
         DeliveryDTO deliveryDTO = new DeliveryDTO(deliveryIdText, distanceText, deliveryTotText, ordersId);
 
         try {
-            boolean isSaved = PlaceOrderModel.savePlaceOrderWithDelivery(orderDTO, cartDTOList, orderDetailsDTOList, deliveryDTO);
+            boolean isSaved = placeOrderBO.savePlaceOrderWithDelivery(orderDTO, cartDTOList, orderDetailsDTOList, deliveryDTO);
             if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"Place Order Success !").show();
+                deliveryId.clear();
+                orderId.clear();
+                customerId.clear();
+                customerName.clear();
+                customerAddress.clear();
+                customerContact.clear();
+                distance.clear();
+                deliveryTot.clear();
+                subTotal.clear();
+                cashId.clear();
+                balanceId.clear();
+                generateDeliveryId();
             }else {
                 new Alert(Alert.AlertType.ERROR,"Place Order not Success !").show();
             }

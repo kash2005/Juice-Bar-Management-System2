@@ -4,8 +4,10 @@ import lk.ijse.layardproject.bo.custom.PlaceOrderBO;
 import lk.ijse.layardproject.dao.DAOFactory;
 import lk.ijse.layardproject.dao.custom.PlaceOrderDAO;
 import lk.ijse.layardproject.dto.CartDTO;
+import lk.ijse.layardproject.dto.DeliveryDTO;
 import lk.ijse.layardproject.dto.OrderDTO;
 import lk.ijse.layardproject.dto.OrderDetailsDTO;
+import lk.ijse.layardproject.entity.Delivery;
 import lk.ijse.layardproject.entity.Order;
 
 import java.sql.SQLException;
@@ -21,5 +23,13 @@ public class PlaceOrderBOImpl implements PlaceOrderBO {
 
 
         return placeOrderDAO.savePlaceOrder(order,cartDTOList,orderDetailsDTOList);
+    }
+
+    @Override
+    public boolean savePlaceOrderWithDelivery(OrderDTO orderDTO, List<CartDTO> cartDTOList, List<OrderDetailsDTO> orderDetailsDTOList, DeliveryDTO deliveryDTO) throws SQLException {
+        Order order = new Order(orderDTO.getOrderId(),orderDTO.getDate(),orderDTO.getCustomerId());
+        Delivery delivery = new Delivery(deliveryDTO.getDeliveryId(), deliveryDTO.getDistance(),deliveryDTO.getPrice(),
+                deliveryDTO.getOrderId());
+        return placeOrderDAO.savePlaceOrderWithDelivery(order,cartDTOList,orderDetailsDTOList,delivery);
     }
 }
