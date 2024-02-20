@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.UserBO;
 import lk.ijse.layardproject.dto.UserDTO;
 import lk.ijse.layardproject.model.UserModel;
 
@@ -29,6 +31,8 @@ public class UserEditFormController implements Initializable {
     @FXML
     private JFXButton updateBtn;
 
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
+
     @FXML
     void passwordOnAction(ActionEvent event) {
         updateBtn.fire();
@@ -39,9 +43,9 @@ public class UserEditFormController implements Initializable {
         String id = userId.getText();
         String name = userName.getText();
         String password1 = password.getText();
-        UserDTO userDTO1 = new UserDTO(id, name, password1);
+
         try {
-            boolean update = UserModel.update(userDTO1);
+            boolean update = userBO.update(new UserDTO(id, name, password1));
             if (update){
                 new Alert(Alert.AlertType.CONFIRMATION,"User is Updated !").show();
             }else {
