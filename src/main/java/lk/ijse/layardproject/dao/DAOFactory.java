@@ -1,6 +1,7 @@
 package lk.ijse.layardproject.dao;
 
 import lk.ijse.layardproject.dao.custom.impl.*;
+import lk.ijse.layardproject.entity.Attendance;
 
 public class DAOFactory {
     public static DAOFactory daoFactory;
@@ -12,7 +13,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        CUSTOMER,SUPPLIER,INGREDIENT,ITEM,ORDER,PLACEORDER,ORDERDETAILS,EMPLOYEE
+        CUSTOMER,SUPPLIER,INGREDIENT,ITEM,ORDER,PLACEORDER,ORDERDETAILS,EMPLOYEE,ATTENDANCE
     }
 
     public SuperDAO getDAO(DAOTypes daoTypes){
@@ -33,6 +34,8 @@ public class DAOFactory {
                 return new OrderDetailsDAOImpl();
             case EMPLOYEE:
                 return new EmployeeDAOImpl();
+            case ATTENDANCE:
+                return new AttendanceDAOImpl();
             default:
                 return null;
         }
