@@ -1,6 +1,7 @@
 package lk.ijse.layardproject.dao;
 
 import lk.ijse.layardproject.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.layardproject.dao.custom.impl.SupplierDAOImpl;
 
 public class DAOFactory {
     public static DAOFactory daoFactory;
@@ -12,13 +13,15 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        CUSTOMER
+        CUSTOMER,SUPPLIER
     }
 
     public SuperDAO getDAO(DAOTypes daoTypes){
         switch (daoTypes){
             case CUSTOMER :
                 return new CustomerDAOImpl();
+            case SUPPLIER:
+                return new SupplierDAOImpl();
             default:
                 return null;
         }

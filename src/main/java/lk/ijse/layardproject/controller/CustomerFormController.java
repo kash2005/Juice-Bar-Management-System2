@@ -143,6 +143,15 @@ public class CustomerFormController implements Initializable {
 
     @FXML
     void searchTxtOnAction(ActionEvent event) {
+        searchId();
+    }
+
+    @FXML
+    void searchImgOnAction(ActionEvent event) {
+        searchId();
+    }
+
+    void searchId(){
         String searchIdText = searchId.getText();
         try {
             CustomerDTO customerDTO = customerBO.searchCustomer(searchIdText);
@@ -154,31 +163,6 @@ public class CustomerFormController implements Initializable {
                 customerAddressId.setText(customerDTO.getAddress());
                 customerEmailId.setText(customerDTO.getEmail());
                 customerContactId.setText(customerDTO.getContact());
-                searchId.clear();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    void searchImgOnAction(ActionEvent event) {
-        String searchIdText = searchId.getText();
-        try {
-            CustomerDTO customerDTO = customerBO.searchCustomer(searchIdText);
-            if (customerDTO != null){
-                saveBtn.setText("Update");
-                saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10;");
-                String id = customerDTO.getCustomerId();
-                String name = customerDTO.getName();
-                String address = customerDTO.getAddress();
-                String email = customerDTO.getEmail();
-                String contact = customerDTO.getContact();
-                customerId.setText(id);
-                customerNameId.setText(name);
-                customerAddressId.setText(address);
-                customerEmailId.setText(email);
-                customerContactId.setText(contact);
                 searchId.clear();
             }
         } catch (SQLException e) {

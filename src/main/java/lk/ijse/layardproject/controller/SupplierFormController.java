@@ -12,6 +12,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.SupplierBO;
 import lk.ijse.layardproject.dto.SupplierDTO;
 import lk.ijse.layardproject.dto.tm.SupplierTM;
 import lk.ijse.layardproject.model.SupplierModel;
@@ -55,16 +57,17 @@ public class SupplierFormController implements Initializable {
     @FXML
     private TextField searchId;
 
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
+
     @FXML
     void saveBtnOnAction(ActionEvent event) {
         String id = supplierId.getText();
         String name = supplierName.getText();
         String contact = supplierContact.getText();
         String company = supplierCompany.getText();
-        SupplierDTO supplierDTO = new SupplierDTO(id,name,contact,company);
         if (saveBtn.getText().equals("Save")){
             try {
-                boolean isSave = SupplierModel.saveSupplier(supplierDTO);
+                boolean isSave = supplierBO.saveSupplier(new SupplierDTO(id,name,contact,company));
                 if (isSave){
                     new Alert(Alert.AlertType.CONFIRMATION,"Supplier is saved !").show();
                     clearTextFileds();
@@ -80,7 +83,7 @@ public class SupplierFormController implements Initializable {
             saveBtn.setText("Update");
             saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
             try {
-                boolean isUpdate = SupplierModel.updateSupplier(supplierDTO);
+                boolean isUpdate = supplierBO.updateSupplier(new SupplierDTO(id,name,contact,company));
                 if (isUpdate){
                     saveBtn.setText("Save");
                     saveBtn.setStyle("-fx-background-color: green; -fx-background-radius: 10");
@@ -101,7 +104,7 @@ public class SupplierFormController implements Initializable {
     void deleteBtnOnAction(ActionEvent event) {
         String id = supplierId.getText();
         try {
-            boolean isDelete = SupplierModel.deleteSupplier(id);
+            boolean isDelete = supplierBO.deleteSupplier(id);
             if (isDelete){
                 new Alert(Alert.AlertType.CONFIRMATION,"Supplier is deleted !").show();
                 clearTextFileds();
@@ -126,32 +129,18 @@ public class SupplierFormController implements Initializable {
 
     @FXML
     void searchIdOnAction(ActionEvent event) {
-        String id = searchId.getText();
-        try {
-            SupplierDTO supplierDTO = SupplierModel.searchSupplier(id);
-            if (supplierDTO != null){
-                saveBtn.setText("Update");
-                saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
-                String supplierId1 = supplierDTO.getSupplierId();
-                String name = supplierDTO.getName();
-                String contact = supplierDTO.getContact();
-                String company = supplierDTO.getCompany();
-                supplierId.setText(supplierId1);
-                supplierName.setText(name);
-                supplierContact.setText(contact);
-                supplierCompany.setText(company);
-                searchId.clear();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        searchId();
     }
 
     @FXML
     void searchImgOnAction(ActionEvent event) {
+        searchId();
+    }
+
+    void searchId(){
         String id = searchId.getText();
         try {
-            SupplierDTO supplierDTO = SupplierModel.searchSupplier(id);
+            SupplierDTO supplierDTO = supplierBO.searchSupplier(id);
             if (supplierDTO != null){
                 saveBtn.setText("Update");
                 saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
@@ -189,7 +178,7 @@ public class SupplierFormController implements Initializable {
     void tblSupplierOnMouseClick(MouseEvent event) {
         SupplierTM selectedSupplier = tblSupplier.getSelectionModel().getSelectedItem();
         try {
-            SupplierDTO supplierDTO = SupplierModel.searchSupplier(selectedSupplier.getSupplierId());
+            SupplierDTO supplierDTO = supplierBO.searchSupplier(selectedSupplier.getSupplierId());
             supplierId.setText(supplierDTO.getSupplierId());
             supplierName.setText(supplierDTO.getName());
             supplierContact.setText(supplierDTO.getContact());
@@ -218,7 +207,7 @@ public class SupplierFormController implements Initializable {
     private void getAll(){
         ObservableList<SupplierTM> observableList = FXCollections.observableArrayList();
         try {
-            ArrayList<SupplierDTO> all = SupplierModel.getAll();
+            ArrayList<SupplierDTO> all = supplierBO.getAll();
             for (SupplierDTO supplierDTO : all){
                 observableList.add(new SupplierTM(
                         supplierDTO.getSupplierId(),
@@ -235,7 +224,7 @@ public class SupplierFormController implements Initializable {
 
     private void generateSupplierId(){
         try {
-            String id = SupplierModel.generateId();
+            String id = supplierBO.generateId();
             supplierId.setText(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
