@@ -13,6 +13,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.ItemBO;
 import lk.ijse.layardproject.dto.ItemDTO;
 import lk.ijse.layardproject.dto.tm.ItemTM;
 import lk.ijse.layardproject.model.ItemModel;
@@ -56,11 +58,13 @@ public class ItemFormController implements Initializable {
     @FXML
     private TextField searchId;
 
+    ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
+
     @FXML
     void deleteBtnOnAction(ActionEvent event) {
         String searchIdText = itemCode.getText();
         try {
-            boolean isDeleted = ItemModel.deleteItem(searchIdText);
+            boolean isDeleted = itemBO.deleteItem(searchIdText);
             if (isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"Item is deleted !").show();
                 clearTextFields();
@@ -100,7 +104,7 @@ public class ItemFormController implements Initializable {
         ItemDTO itemDTO = new ItemDTO(code, description, qty, price);
         if (saveBtn.getText().equals("Save")){
             try {
-                boolean isSave = ItemModel.saveItem(itemDTO);
+                boolean isSave = itemBO.saveItem(itemDTO);
                 if (isSave){
                     getAll();
                     new Alert(Alert.AlertType.CONFIRMATION,"Item is saved !").show();
@@ -114,9 +118,9 @@ public class ItemFormController implements Initializable {
             }
         }else if (saveBtn.getText().equals("Update")){
             saveBtn.setText("Update");
-            saveBtn.setStyle("-fx-background-color: blue; fx-background-radius: 10;");
+            saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10;");
             try {
-                boolean isUpdate = ItemModel.updateItem(itemDTO);
+                boolean isUpdate = itemBO.updateItem(itemDTO);
                 if (isUpdate){
                     saveBtn.setText("Save");
                     saveBtn.setStyle("-fx-background-color:  green; -fx-background-radius: 10;");
@@ -133,34 +137,10 @@ public class ItemFormController implements Initializable {
         }
     }
 
-    @FXML
-    void searchImgOnAction(ActionEvent event) {
+    void searchId(){
         String searchIdText = searchId.getText();
         try {
-            ItemDTO itemDTO = ItemModel.searchItem(searchIdText);
-            if (itemDTO != null){
-                saveBtn.setText("Update");
-                saveBtn.setStyle("-fx-background-color: blue; fx-background-radius: 10;");
-                String itemId = itemDTO.getItemId();
-                String description = itemDTO.getDescription();
-                int qty = itemDTO.getQty();
-                double price = itemDTO.getPrice();
-                itemCode.setText(itemId);
-                itemDescription.setText(description);
-                itemQtyId.setText(String.valueOf(qty));
-                itemPerPriceId.setText(String.valueOf(price));
-                searchId.clear();
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @FXML
-    void searchTxtOnAction(ActionEvent event) {
-        String searchIdText = searchId.getText();
-        try {
-            ItemDTO itemDTO = ItemModel.searchItem(searchIdText);
+            ItemDTO itemDTO = itemBO.searchItem(searchIdText);
             if (itemDTO != null){
                 saveBtn.setText("Update");
                 saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10;");
@@ -180,10 +160,20 @@ public class ItemFormController implements Initializable {
     }
 
     @FXML
+    void searchImgOnAction(ActionEvent event) {
+        searchId();
+    }
+
+    @FXML
+    void searchTxtOnAction(ActionEvent event) {
+        searchId();
+    }
+
+    @FXML
     void tblItemOnMouseClick(MouseEvent event) {
         ItemTM selectedItem = (ItemTM) tblItem.getSelectionModel().getSelectedItem();
         try {
-            ItemDTO item = ItemModel.searchItem(selectedItem.getItemId());
+            ItemDTO item = itemBO.searchItem(selectedItem.getItemId());
             itemCode.setText(item.getItemId());
             itemDescription.setText(item.getDescription());
             itemQtyId.setText(String.valueOf(item.getQty()));
@@ -205,7 +195,7 @@ public class ItemFormController implements Initializable {
     private void getAll() {
         ObservableList<ItemTM> observableList = FXCollections.observableArrayList();
         try {
-            ArrayList<ItemDTO> all = ItemModel.getAll();
+            ArrayList<ItemDTO> all = itemBO.getAll();
             for (ItemDTO itemDTO:all) {
                 observableList.add(new ItemTM(
                         itemDTO.getItemId(),
@@ -229,7 +219,7 @@ public class ItemFormController implements Initializable {
 
     void generateItemId(){
         try {
-            String id = ItemModel.generateItemId();
+            String id = itemBO.generateItemId();
             itemCode.setText(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
