@@ -18,4 +18,6 @@ public interface CustomerBO extends SuperBO {
     String generateCustomerId() throws SQLException;
 
     ArrayList<CustomerDTO> getAll() throws SQLException;
+
+    ArrayList<String> setCustomerId() throws SQLException;
 }

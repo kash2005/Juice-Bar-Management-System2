@@ -13,8 +13,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.CustomerBO;
+import lk.ijse.layardproject.bo.custom.OrderBO;
 import lk.ijse.layardproject.dto.*;
 import lk.ijse.layardproject.dto.tm.AddToCartTM;
+import lk.ijse.layardproject.entity.Order;
 import lk.ijse.layardproject.model.*;
 
 import java.io.IOException;
@@ -108,6 +112,9 @@ public class OrderFormController implements Initializable {
     public static List<OrderDetailsDTO> orderDetailsDTOList = new ArrayList<>();
 
     public static List<OrderDTO> orderDTOList = new ArrayList<>();
+
+    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
     void setItemId(){
         try {
@@ -225,7 +232,7 @@ public class OrderFormController implements Initializable {
 
     void generateOrderId(){
         try {
-            String nextId = OrderModel.generateOrderId();
+            String nextId = orderBO.generateOrderId();
             orderId.setText(nextId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -242,7 +249,7 @@ public class OrderFormController implements Initializable {
 
     void setCustomerId(){
         try {
-            ArrayList<String> arrayList = CustomerModel.setCustomerId();
+            ArrayList<String> arrayList = customerBO.setCustomerId();
             ObservableList<String> strings = observableList(arrayList);
             customerIdCmb.setItems(strings);
 

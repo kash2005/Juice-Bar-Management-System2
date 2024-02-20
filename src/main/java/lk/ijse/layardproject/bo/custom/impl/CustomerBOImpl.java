@@ -51,4 +51,10 @@ public class CustomerBOImpl implements CustomerBO {
         }
         return customerDTOS;
     }
+
+    @Override
+    public ArrayList<String> setCustomerId() throws SQLException {
+        ArrayList<String> stringArrayList = customerDAO.getId();
+        return stringArrayList;
+    }
 }

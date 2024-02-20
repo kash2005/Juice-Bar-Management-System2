@@ -11,7 +11,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CustomerDAOImpl implements CustomerDAO {
-
     @Override
     public boolean save(Customer customer) throws SQLException {
         String sql = "insert into customer(customerId,name,address,email,contact) values (?,?,?,?,?)";
@@ -80,5 +79,17 @@ public class CustomerDAOImpl implements CustomerDAO {
             customerArrayList.add(customer);
         }
         return customerArrayList;
+    }
+
+    @Override
+    public ArrayList<String> getId() throws SQLException {
+        String sql = "select customerId from customer";
+        ResultSet resultSet = SQLUtil.execute(sql);
+        ArrayList<String> arrayList = new ArrayList<>();
+        while (resultSet.next()){
+            String customerId = resultSet.getString("customerId");
+            arrayList.add(customerId);
+        }
+        return arrayList;
     }
 }
