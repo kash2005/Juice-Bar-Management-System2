@@ -17,6 +17,7 @@ import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.CustomerBO;
 import lk.ijse.layardproject.bo.custom.ItemBO;
 import lk.ijse.layardproject.bo.custom.OrderBO;
+import lk.ijse.layardproject.bo.custom.PlaceOrderBO;
 import lk.ijse.layardproject.dto.*;
 import lk.ijse.layardproject.dto.tm.AddToCartTM;
 import lk.ijse.layardproject.entity.Order;
@@ -116,8 +117,8 @@ public class OrderFormController implements Initializable {
 
     OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
-
     ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
+    PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
 
     void setItemId(){
         try {
@@ -132,7 +133,7 @@ public class OrderFormController implements Initializable {
     void setItemDetailsToTextFileds(){
         String selectedItem = itemIdCmb.getSelectionModel().getSelectedItem();
         try {
-            ItemDTO itemDetails = ItemModel.searchItem(selectedItem);
+            ItemDTO itemDetails = itemBO.searchItem(selectedItem);
             if (itemDetails != null){
                 itemDescription.setText(itemDetails.getDescription());
                 itemPrice.setText(String.valueOf(itemDetails.getPrice()));
@@ -265,7 +266,7 @@ public class OrderFormController implements Initializable {
     void customerIdCmbOnAction(ActionEvent event) {
         String value = customerIdCmb.getValue();
         try {
-            CustomerDTO customerDTO = CustomerModel.searchCustomer(value);
+            CustomerDTO customerDTO = customerBO.searchCustomer(value);
             String name = customerDTO.getName();
             customerName.setText(name);
         } catch (SQLException e) {
@@ -395,7 +396,7 @@ public class OrderFormController implements Initializable {
             orderDetailsDTOList.add(orderDetailsDTO);
         }
         try {
-            boolean isPlaceOrder = PlaceOrderModel.savePlaceOrder(orderDTO, cartDTOList, orderDetailsDTOList);
+            boolean isPlaceOrder = placeOrderBO.savePlaceOrder(orderDTO, cartDTOList, orderDetailsDTOList);
             if (isPlaceOrder){
                 new Alert(Alert.AlertType.CONFIRMATION,"Place Order Success !").show();
                 generateOrderId();
