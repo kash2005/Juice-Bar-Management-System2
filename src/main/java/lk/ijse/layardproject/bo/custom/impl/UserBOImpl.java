@@ -44,4 +44,10 @@ public class UserBOImpl implements UserBO {
         }
         return userDTOS;
     }
+
+    @Override
+    public UserDTO getUser(String userName) throws SQLException {
+        User user = userDAO.getUser(userName);
+        return new UserDTO(user.getUserId(),user.getUserName(),user.getPassword());
+    }
 }

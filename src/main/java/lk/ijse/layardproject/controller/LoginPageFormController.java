@@ -16,6 +16,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.EmployeeBO;
+import lk.ijse.layardproject.bo.custom.UserBO;
 import lk.ijse.layardproject.dto.UserDTO;
 import lk.ijse.layardproject.model.EmployeeModel;
 import lk.ijse.layardproject.model.UserModel;
@@ -51,6 +54,9 @@ public class LoginPageFormController implements Initializable {
     @FXML
     private ComboBox<String> cmbEmployeeId;
 
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
+
     @FXML
     void cmbEmployeeIdOnACtion(ActionEvent event) {
         userNameId.requestFocus();
@@ -58,7 +64,7 @@ public class LoginPageFormController implements Initializable {
 
     void setCmbEmployeeId(){
         try {
-            ArrayList<String> cmbEmployeeId1 = EmployeeModel.getCmbEmployeeId();
+            ArrayList<String> cmbEmployeeId1 = employeeBO.getCmbEmployeeId();
             ObservableList<String> observableList = FXCollections.observableArrayList(cmbEmployeeId1);
             cmbEmployeeId.setItems(observableList);
         } catch (SQLException e) {
@@ -94,7 +100,7 @@ public class LoginPageFormController implements Initializable {
             String jobRoll = EmployeeModel.searchId(eId);
             if (jobRoll.equals("Cashier")){
                 try {
-                    UserDTO user = UserModel.getUser(userName);
+                    UserDTO user = userBO.getUser(userName);
                     if (userName.equals(user.getUserName()) && password.equals(user.getPassword())){
                         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/dashboardForm.fxml"));
                         Stage stage = new Stage();
@@ -112,7 +118,7 @@ public class LoginPageFormController implements Initializable {
                 }
             }else if (jobRoll.equals("Admin")){
                 try {
-                    UserDTO user = UserModel.getUser(userName);
+                    UserDTO user = userBO.getUser(userName);
                     if (userName.equals(user.getUserName()) && password.equals(user.getPassword())){
                         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/adminDashboardForm.fxml"));
                         Stage stage = new Stage();

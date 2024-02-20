@@ -16,4 +16,6 @@ public interface UserBO extends SuperBO {
     UserDTO searchId(String id) throws SQLException;
 
     ArrayList<UserDTO> getAll() throws SQLException;
+
+    UserDTO getUser(String userName) throws SQLException;
 }

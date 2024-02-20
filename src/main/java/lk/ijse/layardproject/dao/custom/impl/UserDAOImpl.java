@@ -3,8 +3,11 @@ package lk.ijse.layardproject.dao.custom.impl;
 import lk.ijse.layardproject.dao.SQLUtil;
 import lk.ijse.layardproject.dao.SuperDAO;
 import lk.ijse.layardproject.dao.custom.UserDAO;
+import lk.ijse.layardproject.db.DbConnection;
 import lk.ijse.layardproject.entity.User;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -60,5 +63,23 @@ public class UserDAOImpl implements UserDAO {
             userArrayList.add(user);
         }
         return userArrayList;
+    }
+
+    @Override
+    public User getUser(String userName) throws SQLException {
+        Connection connection = DbConnection.getInstance().getConnection();
+        String sql = "select * from user where userName = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1,userName);
+        ResultSet resultSet = preparedStatement.executeQuery();//table ek represent karanne result set ehekin
+        if (resultSet.next()){//table eke row ek check karanw data tyenw nam ilaga ekt paninw
+            User user = new User(
+                    resultSet.getString("userId"),
+                    resultSet.getString("userName"),
+                    resultSet.getString("password")
+            );
+            return user;
+        }
+        return null;
     }
 }
