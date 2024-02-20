@@ -18,4 +18,8 @@ public interface EmployeeBO extends SuperBO {
     String generateId() throws SQLException;
 
     ArrayList<EmployeeDTO> getAll() throws SQLException;
+
+    ArrayList<String> getEmployeeId() throws SQLException;
+
+    ArrayList<String> getCmbEmployeeId() throws SQLException;
 }

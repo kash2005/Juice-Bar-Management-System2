@@ -9,8 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.EmployeeBO;
+import lk.ijse.layardproject.bo.custom.UserBO;
 import lk.ijse.layardproject.dto.UserDTO;
 import lk.ijse.layardproject.dto.tm.UserTM;
+import lk.ijse.layardproject.entity.Employee;
 import lk.ijse.layardproject.model.EmployeeModel;
 import lk.ijse.layardproject.model.UserModel;
 
@@ -51,11 +55,14 @@ public class UserFormController implements Initializable {
     @FXML
     private ComboBox<String> cmbUserId;
 
+    UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
+
     @FXML
     void deleteBtnOnAction(ActionEvent event) {
         String id = cmbUserId.getValue();
         try {
-            boolean delete = UserModel.delete(id);
+            boolean delete = userBO.delete(id);
             if (delete){
                 new Alert(Alert.AlertType.CONFIRMATION,"User is Deleted !").show();
                 clear();
@@ -80,10 +87,10 @@ public class UserFormController implements Initializable {
         String id = cmbUserId.getValue();
         String name = userName.getText();
         String password1 = password.getText();
-        UserDTO userDTO = new UserDTO(id, name, password1);
+
         if (saveBtn.getText().equals("Save")) {
             try {
-                boolean save = UserModel.save(userDTO);
+                boolean save = userBO.save(new UserDTO(id, name, password1));
                 if (save){
                     new Alert(Alert.AlertType.CONFIRMATION,"User is Saved !").show();
                     clear();
@@ -96,7 +103,7 @@ public class UserFormController implements Initializable {
             }
         }else if (saveBtn.getText().equals("Update")){
             try {
-                boolean update = UserModel.update(userDTO);
+                boolean update = userBO.update(new UserDTO(id, name, password1));
                 if (update){
                     new Alert(Alert.AlertType.CONFIRMATION,"User is Updated !").show();
                     saveBtn.setText("Save");
@@ -112,11 +119,10 @@ public class UserFormController implements Initializable {
         }
     }
 
-    @FXML
-    void searchIdOnAction(ActionEvent event) {
+    void searchId(){
         String id = searchId.getText();
         try {
-            UserDTO userDTO = UserModel.searchId(id);
+            UserDTO userDTO = userBO.searchId(id);
             cmbUserId.setValue(id);
             userName.setText(userDTO.getUserName());
             password.setText(userDTO.getPassword());
@@ -128,25 +134,20 @@ public class UserFormController implements Initializable {
     }
 
     @FXML
+    void searchIdOnAction(ActionEvent event) {
+        searchId();
+    }
+
+    @FXML
     void searchImgOnAction(ActionEvent event) {
-        String id = searchId.getText();
-        try {
-            UserDTO userDTO = UserModel.searchId(id);
-            cmbUserId.setValue(id);
-            userName.setText(userDTO.getUserName());
-            password.setText(userDTO.getPassword());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        saveBtn.setText("Update");
-        saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
+        searchId();
     }
 
     @FXML
     void tblUserOnMouseClick(MouseEvent event) {
         UserTM selectedItem = (UserTM) tblUser.getSelectionModel().getSelectedItem();
         try {
-            UserDTO userDTO = UserModel.searchId(selectedItem.getUserId());
+            UserDTO userDTO = userBO.searchId(selectedItem.getUserId());
             cmbUserId.setValue(userDTO.getUserId());
             userName.setText(userDTO.getUserName());
             password.setText(userDTO.getPassword());
@@ -169,7 +170,7 @@ public class UserFormController implements Initializable {
 
     void getCashierId(){
         try {
-            ArrayList<String> cashierId = EmployeeModel.getCmbEmployeeId();
+            ArrayList<String> cashierId = employeeBO.getCmbEmployeeId();
             ObservableList<String> observableList = FXCollections.observableArrayList(cashierId);
             cmbUserId.setItems(observableList);
         } catch (SQLException e) {
@@ -194,7 +195,7 @@ public class UserFormController implements Initializable {
     private void getAll() {
         ObservableList<UserTM> observableList = FXCollections.observableArrayList();
         try {
-            ArrayList<UserDTO> all = UserModel.getAll();
+            ArrayList<UserDTO> all = userBO.getAll();
             for (UserDTO userDTO : all){
                 observableList.add(new UserTM(
                         userDTO.getUserId(),

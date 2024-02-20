@@ -84,4 +84,31 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
         return employeeArrayList;
     }
+
+    @Override
+    public ArrayList<String> getId() throws SQLException {
+        String sql = "select eId from employee;";
+        ArrayList<String> arrayList = new ArrayList<>();
+        ResultSet resultSet = SQLUtil.execute(sql);
+        while (resultSet.next()){
+            String eId = resultSet.getString("eId");
+            arrayList.add(eId);
+        }
+        return arrayList;
+    }
+
+    @Override
+    public ArrayList<String> getCmbId() throws SQLException {
+        String sql = "select eId,jobRoll from employee;";
+        ArrayList<String> arrayList = new ArrayList<>();
+        ResultSet resultSet = SQLUtil.execute(sql);
+        while (resultSet.next()){
+            String eId = resultSet.getString("eId");
+            String jobRoll = resultSet.getString("jobRoll");
+            if (jobRoll.equals("Cashier") || jobRoll.equals("Admin")){
+                arrayList.add(eId);
+            }
+        }
+        return arrayList;
+    }
 }

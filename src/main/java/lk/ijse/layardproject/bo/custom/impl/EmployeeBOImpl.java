@@ -52,4 +52,16 @@ public class EmployeeBOImpl implements EmployeeBO {
         }
         return employeeDTOS;
     }
+
+    @Override
+    public ArrayList<String> getEmployeeId() throws SQLException {
+        ArrayList<String> arrayList = employeeDAO.getId();
+        return arrayList;
+    }
+
+    @Override
+    public ArrayList<String> getCmbEmployeeId() throws SQLException {
+        ArrayList<String> arrayList = employeeDAO.getCmbId();
+        return arrayList;
+    }
 }
