@@ -9,6 +9,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.AttendanceBO;
+import lk.ijse.layardproject.bo.custom.EmployeeBO;
 import lk.ijse.layardproject.dto.AttendanceDTO;
 import lk.ijse.layardproject.dto.tm.AttendanceTM;
 import lk.ijse.layardproject.model.AttendanceModel;
@@ -54,12 +57,14 @@ public class AttendanceFormController implements Initializable {
     @FXML
     private JFXButton saveBtn;
 
+    AttendanceBO attendanceBO = (AttendanceBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ATTENDANCE);
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
 
     @FXML
     void deleteBtnOnAction(ActionEvent event) {
         String id = attendanceId.getText();
         try {
-            boolean delete = AttendanceModel.delete(id);
+            boolean delete = attendanceBO.delete(id);
             if (delete){
                 new Alert(Alert.AlertType.CONFIRMATION,"Attendance is deleted !").show();
                 clear();
@@ -91,11 +96,10 @@ public class AttendanceFormController implements Initializable {
         String eId = cmbEId.getValue();
         LocalTime entry = LocalTime.parse(entryTime.getText());
         LocalTime depart = LocalTime.parse(departTime.getText());
-        AttendanceDTO attendanceDTO = new AttendanceDTO(id, depart, eId, entry);
 
         if (saveBtn.getText().equals("Save")){
             try {
-                boolean save = AttendanceModel.save(attendanceDTO);
+                boolean save = attendanceBO.save(new AttendanceDTO(id, depart, eId, entry));
                 if (save){
                     new Alert(Alert.AlertType.CONFIRMATION,"Attendance is saved !").show();
                     clear();
@@ -108,7 +112,7 @@ public class AttendanceFormController implements Initializable {
                 throw new RuntimeException(e);
             }
         }else if (saveBtn.getText().equals("Update")){
-            boolean update = AttendanceModel.update(attendanceDTO);
+            boolean update = attendanceBO.update(new AttendanceDTO(id, depart, eId, entry));
             if (update){
                 new Alert(Alert.AlertType.CONFIRMATION,"Attendance is updated !").show();
                 clear();
@@ -122,11 +126,10 @@ public class AttendanceFormController implements Initializable {
         }
     }
 
-    @FXML
-    void searchIdOnAction(ActionEvent event) {
+    void searchId(){
         String id = searchId.getText();
         try {
-            AttendanceDTO attendanceDTO = AttendanceModel.searchId(id);
+            AttendanceDTO attendanceDTO = attendanceBO.searchId(id);
             attendanceId.setText(attendanceDTO.getAttendanceId());
             entryTime.setText(String.valueOf(attendanceDTO.getEntryTime()));
             departTime.setText(String.valueOf(attendanceDTO.getDepartTime()));
@@ -139,26 +142,20 @@ public class AttendanceFormController implements Initializable {
     }
 
     @FXML
+    void searchIdOnAction(ActionEvent event) {
+        searchId();
+    }
+
+    @FXML
     void searchImgOnAction(ActionEvent event) {
-        String id = searchId.getText();
-        try {
-            AttendanceDTO attendanceDTO = AttendanceModel.searchId(id);
-            attendanceId.setText(attendanceDTO.getAttendanceId());
-            entryTime.setText(String.valueOf(attendanceDTO.getEntryTime()));
-            departTime.setText(String.valueOf(attendanceDTO.getDepartTime()));
-            cmbEId.setValue(attendanceDTO.getEId());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        saveBtn.setText("Update");
-        saveBtn.setStyle("-fx-background-color: blue; -fx-background-radius: 10");
+        searchId();
     }
 
     @FXML
     void tblAttendanceOnMouseClick(MouseEvent event) {
         AttendanceTM selectedItem = (AttendanceTM) tblAttendance.getSelectionModel().getSelectedItem();
         try {
-            AttendanceDTO attendanceDTO = AttendanceModel.searchId(selectedItem.getAttendanceId());
+            AttendanceDTO attendanceDTO = attendanceBO.searchId(selectedItem.getAttendanceId());
             attendanceId.setText(attendanceDTO.getAttendanceId());
             entryTime.setText(String.valueOf(attendanceDTO.getEntryTime()));
             departTime.setText(String.valueOf(attendanceDTO.getDepartTime()));
@@ -180,7 +177,7 @@ public class AttendanceFormController implements Initializable {
 
     void generateId(){
         try {
-            String id = AttendanceModel.generateId();
+            String id = attendanceBO.generateId();
             attendanceId.setText(id);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -197,7 +194,7 @@ public class AttendanceFormController implements Initializable {
     private void getAll(){
         ObservableList<AttendanceTM> observableList = FXCollections.observableArrayList();
         try {
-            ArrayList<AttendanceDTO> all = AttendanceModel.getAll();
+            ArrayList<AttendanceDTO> all = attendanceBO.getAll();
             for (AttendanceDTO attendanceDTO : all){
                 observableList.add(new AttendanceTM(
                         attendanceDTO.getAttendanceId(),
@@ -214,7 +211,7 @@ public class AttendanceFormController implements Initializable {
 
     void setEmployeeId(){
         try {
-            ArrayList<String> cmbEmployeeId = EmployeeModel.getEmployeeId();
+            ArrayList<String> cmbEmployeeId = employeeBO.getEmployeeId();
             ObservableList<String> observableList = FXCollections.observableArrayList(cmbEmployeeId);
             cmbEId.setItems(observableList);
         } catch (SQLException e) {
