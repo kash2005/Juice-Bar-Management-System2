@@ -6,4 +6,6 @@ import java.sql.SQLException;
 
 public interface OrderBO extends SuperBO {
     String generateOrderId() throws SQLException;
+
+    Integer[] lineChart() throws SQLException;
 }

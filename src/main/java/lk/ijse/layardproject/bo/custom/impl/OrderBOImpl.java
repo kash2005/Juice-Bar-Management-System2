@@ -15,4 +15,9 @@ public class OrderBOImpl implements OrderBO {
     public String generateOrderId() throws SQLException {
         return orderDAO.generateId();
     }
+
+    @Override
+    public Integer[] lineChart() throws SQLException {
+        return orderDAO.lineChart();
+    }
 }

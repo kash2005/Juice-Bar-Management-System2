@@ -16,6 +16,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.EmployeeBO;
+import lk.ijse.layardproject.bo.custom.OrderBO;
 import lk.ijse.layardproject.dto.EmployeeDTO;
 import lk.ijse.layardproject.dto.tm.EmployeeTM;
 import lk.ijse.layardproject.model.EmployeeModel;
@@ -85,10 +88,13 @@ public class AdminDashboardLoaderController implements Initializable {
     @FXML
     private LineChart<String, Integer> lineChart;
 
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
+    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
+
     private void getAll(){
         ObservableList<EmployeeTM> observableList = FXCollections.observableArrayList();
         try {
-            ArrayList<EmployeeDTO> all = EmployeeModel.getAll();
+            ArrayList<EmployeeDTO> all = employeeBO.getAll();
             for (EmployeeDTO employeeDTO : all){
                 observableList.add(new EmployeeTM(
                         employeeDTO.getEId(),
@@ -187,7 +193,7 @@ public class AdminDashboardLoaderController implements Initializable {
         getAll();
 
         try {
-            Integer[] data = OrderModel.lineChart();
+            Integer[] data = orderBO.lineChart();
             XYChart.Series<String, Integer> series = new XYChart.Series();
             series.setName("No. of Orders");
             series.getData().add(new XYChart.Data("JAN", data[0]));

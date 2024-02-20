@@ -3,11 +3,13 @@ package lk.ijse.layardproject.dao.custom.impl;
 import lk.ijse.layardproject.dao.SQLUtil;
 import lk.ijse.layardproject.dao.SuperDAO;
 import lk.ijse.layardproject.dao.custom.ItemDAO;
+import lk.ijse.layardproject.dto.CartDTO;
 import lk.ijse.layardproject.entity.Item;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemDAOImpl implements ItemDAO {
     @Override
@@ -90,5 +92,20 @@ public class ItemDAOImpl implements ItemDAO {
             item.add(itemId);
         }
         return item;
+    }
+
+    @Override
+    public boolean updateQty(List<CartDTO> cartDTOList) throws SQLException {
+        for (CartDTO cartDTO : cartDTOList){
+            if (!updateQty(cartDTO)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean updateQty(CartDTO cartDTO) throws SQLException {
+        String sql = "update item set qty = (qty - ?) where itemId =?;";
+        return SQLUtil.execute(sql,cartDTO.getQty(),cartDTO.getItemId());
     }
 }
