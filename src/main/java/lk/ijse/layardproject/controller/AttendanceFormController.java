@@ -14,8 +14,6 @@ import lk.ijse.layardproject.bo.custom.AttendanceBO;
 import lk.ijse.layardproject.bo.custom.EmployeeBO;
 import lk.ijse.layardproject.dto.AttendanceDTO;
 import lk.ijse.layardproject.dto.tm.AttendanceTM;
-import lk.ijse.layardproject.model.AttendanceModel;
-import lk.ijse.layardproject.model.EmployeeModel;
 
 import java.net.URL;
 import java.sql.SQLException;

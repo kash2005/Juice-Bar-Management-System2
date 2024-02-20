@@ -20,8 +20,6 @@ import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.EmployeeBO;
 import lk.ijse.layardproject.bo.custom.UserBO;
 import lk.ijse.layardproject.dto.UserDTO;
-import lk.ijse.layardproject.model.EmployeeModel;
-import lk.ijse.layardproject.model.UserModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -97,7 +95,7 @@ public class LoginPageFormController implements Initializable {
         String password = passwordId.getText();
 
         try {
-            String jobRoll = EmployeeModel.searchId(eId);
+            String jobRoll = employeeBO.searchId(eId);
             if (jobRoll.equals("Cashier")){
                 try {
                     UserDTO user = userBO.getUser(userName);

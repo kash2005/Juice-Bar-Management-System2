@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.UserBO;
 import lk.ijse.layardproject.dto.UserDTO;
-import lk.ijse.layardproject.model.UserModel;
 
 import java.net.URL;
 import java.sql.SQLException;

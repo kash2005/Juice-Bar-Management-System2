@@ -16,7 +16,6 @@ import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.SupplierBO;
 import lk.ijse.layardproject.dto.SupplierDTO;
 import lk.ijse.layardproject.dto.tm.SupplierTM;
-import lk.ijse.layardproject.model.SupplierModel;
 
 import java.net.URL;
 import java.sql.SQLException;

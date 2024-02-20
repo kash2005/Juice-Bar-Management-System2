@@ -20,8 +20,6 @@ import lk.ijse.layardproject.bo.custom.OrderBO;
 import lk.ijse.layardproject.bo.custom.PlaceOrderBO;
 import lk.ijse.layardproject.dto.*;
 import lk.ijse.layardproject.dto.tm.AddToCartTM;
-import lk.ijse.layardproject.entity.Order;
-import lk.ijse.layardproject.model.*;
 
 import java.io.IOException;
 import java.net.URL;

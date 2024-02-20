@@ -1,15 +1,13 @@
 package lk.ijse.layardproject.dao.custom.impl;
 
 import lk.ijse.layardproject.dao.DAOFactory;
-import lk.ijse.layardproject.dao.SuperDAO;
 import lk.ijse.layardproject.dao.custom.*;
 import lk.ijse.layardproject.db.DbConnection;
 import lk.ijse.layardproject.dto.CartDTO;
-import lk.ijse.layardproject.dto.OrderDTO;
 import lk.ijse.layardproject.dto.OrderDetailsDTO;
 import lk.ijse.layardproject.entity.Delivery;
 import lk.ijse.layardproject.entity.Order;
-import lk.ijse.layardproject.model.ItemModel;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;

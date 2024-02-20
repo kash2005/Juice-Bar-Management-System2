@@ -13,7 +13,7 @@ import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.EmployeeBO;
 import lk.ijse.layardproject.dto.EmployeeDTO;
 import lk.ijse.layardproject.dto.tm.EmployeeTM;
-import lk.ijse.layardproject.model.EmployeeModel;
+
 
 import java.net.URL;
 import java.sql.SQLException;

@@ -21,8 +21,6 @@ import lk.ijse.layardproject.bo.custom.EmployeeBO;
 import lk.ijse.layardproject.bo.custom.OrderBO;
 import lk.ijse.layardproject.dto.EmployeeDTO;
 import lk.ijse.layardproject.dto.tm.EmployeeTM;
-import lk.ijse.layardproject.model.EmployeeModel;
-import lk.ijse.layardproject.model.OrderModel;
 
 import java.io.IOException;
 import java.net.URL;

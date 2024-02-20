@@ -16,7 +16,6 @@ import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.IngredientBO;
 import lk.ijse.layardproject.dto.IngredientDTO;
 import lk.ijse.layardproject.dto.tm.IngredientTM;
-import lk.ijse.layardproject.model.IngredientModel;
 
 import java.net.URL;
 import java.sql.SQLException;

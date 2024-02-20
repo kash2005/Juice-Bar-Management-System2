@@ -14,9 +14,6 @@ import lk.ijse.layardproject.bo.custom.EmployeeBO;
 import lk.ijse.layardproject.bo.custom.UserBO;
 import lk.ijse.layardproject.dto.UserDTO;
 import lk.ijse.layardproject.dto.tm.UserTM;
-import lk.ijse.layardproject.entity.Employee;
-import lk.ijse.layardproject.model.EmployeeModel;
-import lk.ijse.layardproject.model.UserModel;
 
 import java.net.URL;
 import java.sql.SQLException;

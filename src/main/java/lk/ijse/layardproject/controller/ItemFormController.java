@@ -17,7 +17,6 @@ import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.ItemBO;
 import lk.ijse.layardproject.dto.ItemDTO;
 import lk.ijse.layardproject.dto.tm.ItemTM;
-import lk.ijse.layardproject.model.ItemModel;
 
 import java.net.URL;
 import java.sql.SQLException;

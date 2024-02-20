@@ -9,16 +9,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.DeliveryBO;
+import lk.ijse.layardproject.bo.custom.ItemBO;
 import lk.ijse.layardproject.bo.custom.OrderBO;
 import lk.ijse.layardproject.bo.custom.OrderDetailsBO;
 import lk.ijse.layardproject.dto.ItemDTO;
 import lk.ijse.layardproject.dto.OrderDTO;
 import lk.ijse.layardproject.dto.OrderDetailsDTO;
 import lk.ijse.layardproject.dto.tm.OrderDetailsTM;
-import lk.ijse.layardproject.model.DeliveryModel;
-import lk.ijse.layardproject.model.ItemModel;
-import lk.ijse.layardproject.model.OrderDetailsModel;
-import lk.ijse.layardproject.model.OrderModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -59,6 +56,7 @@ public class OrderDetailsTblFormController implements Initializable {
     OrderDetailsBO orderDetailsBO = (OrderDetailsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDERDETAILS);
     OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
     DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DELIVERY);
+    ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -98,7 +96,7 @@ public class OrderDetailsTblFormController implements Initializable {
                 OrderDTO orderDTO = orderBO.searchOrderId(orderId);
                 date = orderDTO.getDate();
                 customerId = orderDTO.getCustomerId();
-                ItemDTO itemDTO = ItemModel.searchItem(itemId);
+                ItemDTO itemDTO = itemBO.searchItem(itemId);
                 description = itemDTO.getDescription();
                 deliveryStatus = deliveryBO.getAllDelivery(orderId);
                 if (deliveryStatus == null) {

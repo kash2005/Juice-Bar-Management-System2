@@ -6,12 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.CustomerBO;
 import lk.ijse.layardproject.bo.custom.DeliveryBO;
 import lk.ijse.layardproject.bo.custom.PlaceOrderBO;
 import lk.ijse.layardproject.dto.*;
-import lk.ijse.layardproject.model.CustomerModel;
-import lk.ijse.layardproject.model.DeliveryModel;
-import lk.ijse.layardproject.model.PlaceOrderModel;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -61,6 +59,7 @@ public class DeliveryFormController implements Initializable {
 
     DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DELIVERY);
     PlaceOrderBO placeOrderBO = (PlaceOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PLACEORDER);
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -81,7 +80,7 @@ public class DeliveryFormController implements Initializable {
     void getCustomerDetails(){
         String customerId1 = orderDTO.getCustomerId();
         try {
-            CustomerDTO customerDTO = CustomerModel.searchCustomer(customerId1);
+            CustomerDTO customerDTO = customerBO.searchCustomer(customerId1);
             String name = customerDTO.getName();
             String address = customerDTO.getAddress();
             String contact = customerDTO.getContact();

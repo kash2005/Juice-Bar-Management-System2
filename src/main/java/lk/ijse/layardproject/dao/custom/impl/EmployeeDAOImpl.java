@@ -111,4 +111,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
         return arrayList;
     }
+
+    @Override
+    public String searchId(String eId) throws SQLException {
+        String sql = "select jobRoll from employee where eId = ?;";
+        ResultSet resultSet = SQLUtil.execute(sql, eId);
+        String jobRoll =null;
+        if (resultSet.next()){
+            jobRoll = resultSet.getString("jobRoll");
+        }
+        return jobRoll;
+    }
 }

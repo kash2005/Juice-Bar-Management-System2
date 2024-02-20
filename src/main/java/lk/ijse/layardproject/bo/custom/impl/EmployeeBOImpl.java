@@ -64,4 +64,10 @@ public class EmployeeBOImpl implements EmployeeBO {
         ArrayList<String> arrayList = employeeDAO.getCmbId();
         return arrayList;
     }
+
+    @Override
+    public String searchId(String eId) throws SQLException {
+        return  employeeDAO.searchId(eId);
+
+    }
 }

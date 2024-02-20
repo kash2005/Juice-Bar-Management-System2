@@ -10,4 +10,6 @@ public interface EmployeeDAO extends CrudDAO<Employee> {
     ArrayList<String> getId() throws SQLException;
 
     ArrayList<String> getCmbId() throws SQLException;
+
+    String searchId(String eId) throws SQLException;
 }

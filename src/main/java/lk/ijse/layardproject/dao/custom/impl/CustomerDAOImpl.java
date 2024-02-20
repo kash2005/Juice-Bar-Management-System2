@@ -4,7 +4,7 @@ import lk.ijse.layardproject.dao.SQLUtil;
 import lk.ijse.layardproject.dao.custom.CustomerDAO;
 import lk.ijse.layardproject.dto.CustomerDTO;
 import lk.ijse.layardproject.entity.Customer;
-import lk.ijse.layardproject.util.CrudUtil;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,7 +67,7 @@ public class CustomerDAOImpl implements CustomerDAO {
     public ArrayList<Customer> getAll() throws SQLException {
         String sql = "select * from customer;";
         ArrayList<Customer> customerArrayList = new ArrayList<>();
-        ResultSet resultSet = CrudUtil.execute(sql);
+        ResultSet resultSet = SQLUtil.execute(sql);
         while (resultSet.next()){
             Customer customer = new Customer(
                     resultSet.getString("customerId"),

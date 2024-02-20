@@ -22,4 +22,6 @@ public interface EmployeeBO extends SuperBO {
     ArrayList<String> getEmployeeId() throws SQLException;
 
     ArrayList<String> getCmbEmployeeId() throws SQLException;
+
+    String searchId(String eId) throws SQLException;
 }
