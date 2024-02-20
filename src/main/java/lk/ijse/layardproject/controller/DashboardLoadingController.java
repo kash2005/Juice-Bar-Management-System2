@@ -11,6 +11,8 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.OrderBO;
 import lk.ijse.layardproject.model.OrderModel;
 
 import java.io.IOException;
@@ -77,6 +79,8 @@ public class DashboardLoadingController implements Initializable {
     @FXML
     private LineChart<String, Integer> lineChart;
 
+    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         menuAnchorpane.setVisible(false);
@@ -84,7 +88,7 @@ public class DashboardLoadingController implements Initializable {
         snackMenuAnchorPane.setVisible(false);
 
         try {
-            Integer[] data = OrderModel.lineChart();
+            Integer[] data = orderBO.lineChart();
             XYChart.Series<String, Integer> series = new XYChart.Series();
             series.setName("No. of Orders");
             series.getData().add(new XYChart.Data("JAN", data[0]));
