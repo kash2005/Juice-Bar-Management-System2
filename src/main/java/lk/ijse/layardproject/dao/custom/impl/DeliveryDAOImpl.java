@@ -1,7 +1,6 @@
 package lk.ijse.layardproject.dao.custom.impl;
 
 import lk.ijse.layardproject.dao.SQLUtil;
-import lk.ijse.layardproject.dao.SuperDAO;
 import lk.ijse.layardproject.dao.custom.DeliveryDAO;
 import lk.ijse.layardproject.entity.Delivery;
 
@@ -51,4 +50,24 @@ public class DeliveryDAOImpl implements DeliveryDAO {
     public ArrayList<Delivery> getAll() throws SQLException {
         return null;
     }
+
+    @Override
+    public String getallDelivery(String orderId) throws SQLException {
+        String sql = "select * from delivery where orderId = ?;";
+        Delivery delivery = null;
+        String status = "";
+        ResultSet resultSet = SQLUtil.execute(sql,orderId);
+        if (resultSet.next()){
+            String deliveryId = resultSet.getString("deliveryId");
+            String distance = resultSet.getString("distance");
+            double price = resultSet.getDouble("price");
+            String orderId1 = resultSet.getString("orderId");
+            delivery = new Delivery(deliveryId,distance,price,orderId1);
+            if (orderId.equals(orderId1)){
+                return status;
+            }
+        }
+        return null;
+    }
+
 }

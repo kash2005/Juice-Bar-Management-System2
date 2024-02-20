@@ -4,6 +4,8 @@ import lk.ijse.layardproject.bo.SuperBO;
 import lk.ijse.layardproject.bo.custom.OrderBO;
 import lk.ijse.layardproject.dao.DAOFactory;
 import lk.ijse.layardproject.dao.custom.OrderDAO;
+import lk.ijse.layardproject.dto.OrderDTO;
+import lk.ijse.layardproject.entity.Order;
 
 import java.sql.SQLException;
 
@@ -19,5 +21,11 @@ public class OrderBOImpl implements OrderBO {
     @Override
     public Integer[] lineChart() throws SQLException {
         return orderDAO.lineChart();
+    }
+
+    @Override
+    public OrderDTO searchOrderId(String orderId) throws SQLException {
+        Order order = orderDAO.search(orderId);
+        return new OrderDTO(order.getOrderId(),order.getDate(),order.getCustomerId());
     }
 }

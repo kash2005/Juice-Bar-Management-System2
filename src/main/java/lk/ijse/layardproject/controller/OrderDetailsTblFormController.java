@@ -7,6 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import lk.ijse.layardproject.bo.BOFactory;
+import lk.ijse.layardproject.bo.custom.DeliveryBO;
+import lk.ijse.layardproject.bo.custom.OrderBO;
+import lk.ijse.layardproject.bo.custom.OrderDetailsBO;
 import lk.ijse.layardproject.dto.ItemDTO;
 import lk.ijse.layardproject.dto.OrderDTO;
 import lk.ijse.layardproject.dto.OrderDetailsDTO;
@@ -52,6 +56,10 @@ public class OrderDetailsTblFormController implements Initializable {
 
     ObservableList<OrderDetailsTM> observableList = FXCollections.observableArrayList();
 
+    OrderDetailsBO orderDetailsBO = (OrderDetailsBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDERDETAILS);
+    OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
+    DeliveryBO deliveryBO = (DeliveryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.DELIVERY);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setValueFactory();
@@ -80,19 +88,19 @@ public class OrderDetailsTblFormController implements Initializable {
         String deliveryStatus = null;
         OrderDetailsTM orderDetailsTM = null;
         try {
-            ArrayList<OrderDetailsDTO> orderDetails = OrderDetailsModel.getOrderDetails();
+            ArrayList<OrderDetailsDTO> orderDetails = orderDetailsBO.getAll();
             for (OrderDetailsDTO orderDetailsDTO : orderDetails) {
                 orderId = orderDetailsDTO.getOrderId();
                 itemId = orderDetailsDTO.getItemId();
                 getQty = orderDetailsDTO.getGetQty();
                 amount = orderDetailsDTO.getAmount();
 
-                OrderDTO orderDTO = OrderModel.searchOrderId(orderId);
+                OrderDTO orderDTO = orderBO.searchOrderId(orderId);
                 date = orderDTO.getDate();
                 customerId = orderDTO.getCustomerId();
                 ItemDTO itemDTO = ItemModel.searchItem(itemId);
                 description = itemDTO.getDescription();
-                deliveryStatus = DeliveryModel.getAllDelivery(orderId);
+                deliveryStatus = deliveryBO.getAllDelivery(orderId);
                 if (deliveryStatus == null) {
                     deliveryStatus = "No";
                 } else {

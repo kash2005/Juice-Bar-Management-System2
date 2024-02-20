@@ -6,4 +6,6 @@ import java.sql.SQLException;
 
 public interface DeliveryBO extends SuperBO {
     String generateDeliveryId() throws SQLException;
+
+    String getAllDelivery(String orderId) throws SQLException;
 }
