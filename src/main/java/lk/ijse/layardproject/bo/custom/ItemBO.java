@@ -18,4 +18,6 @@ public interface ItemBO extends SuperBO {
     ArrayList<ItemDTO> getAll() throws SQLException;
 
     String generateItemId() throws SQLException;
+
+    ArrayList<String> getItemId() throws SQLException;
 }

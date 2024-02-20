@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.layardproject.bo.BOFactory;
 import lk.ijse.layardproject.bo.custom.CustomerBO;
+import lk.ijse.layardproject.bo.custom.ItemBO;
 import lk.ijse.layardproject.bo.custom.OrderBO;
 import lk.ijse.layardproject.dto.*;
 import lk.ijse.layardproject.dto.tm.AddToCartTM;
@@ -116,9 +117,11 @@ public class OrderFormController implements Initializable {
     OrderBO orderBO = (OrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ORDER);
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
 
+    ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
+
     void setItemId(){
         try {
-            ArrayList<String> itemId = ItemModel.getItemId();
+            ArrayList<String> itemId = itemBO.getItemId();
             ObservableList<String> observableList = FXCollections.observableArrayList(itemId);
             itemIdCmb.setItems(observableList);
         } catch (SQLException e) {

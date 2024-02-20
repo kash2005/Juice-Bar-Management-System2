@@ -79,4 +79,16 @@ public class ItemDAOImpl implements ItemDAO {
         }
         return itemArrayList;
     }
+
+    @Override
+    public ArrayList<String> getId() throws SQLException {
+        String sql = "select itemId from item";
+        ResultSet resultSet = SQLUtil.execute(sql);
+        ArrayList<String> item = new ArrayList<>();
+        while (resultSet.next()){
+            String itemId = resultSet.getString("itemId");
+            item.add(itemId);
+        }
+        return item;
+    }
 }

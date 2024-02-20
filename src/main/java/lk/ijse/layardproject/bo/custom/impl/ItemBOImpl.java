@@ -48,4 +48,10 @@ public class ItemBOImpl implements ItemBO {
     public String generateItemId() throws SQLException {
         return itemDAO.generateId();
     }
+
+    @Override
+    public ArrayList<String> getItemId() throws SQLException {
+        ArrayList<String> stringArrayList = itemDAO.getId();
+        return stringArrayList;
+    }
 }
