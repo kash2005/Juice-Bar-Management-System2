@@ -360,6 +360,9 @@ public class OrderFormController implements Initializable {
                 OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(id,addToCartTM.getItemCode(),addToCartTM.getGetQty(),tot);
                 orderDetailsDTOList.add(orderDetailsDTO);
                 DeliveryFormController.orderDetailsDTOList = orderDetailsDTOList;
+                tblItemDetails.getItems().clear();
+                clear();
+                yesRadioBtn.setSelected(false);
             }
             try {
                 AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/lk/ijse/layardproject/view/deliveryForm.fxml"));
@@ -392,6 +395,7 @@ public class OrderFormController implements Initializable {
             cartDTOList.add(cartDTO);
             OrderDetailsDTO orderDetailsDTO = new OrderDetailsDTO(id,addToCartTM.getItemCode(),addToCartTM.getGetQty(),tot);
             orderDetailsDTOList.add(orderDetailsDTO);
+
         }
         try {
             boolean isPlaceOrder = placeOrderBO.savePlaceOrder(orderDTO, cartDTOList, orderDetailsDTOList);
